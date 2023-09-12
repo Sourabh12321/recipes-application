@@ -1,12 +1,19 @@
 const express = require("express");
+const cors = require("cors")
 require("dotenv").config();
 const {seq} = require("./config/db")
 const {userRouter} = require("./routes/userRoute")
+const  {recipeRouter} = require("./routes/recipeRoute")
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
+
 app.use("/users",userRouter);
+app.use("/recipes",recipeRouter);
+
+
 
 app.get("/",(req,res)=>{
     res.send("home page ");
