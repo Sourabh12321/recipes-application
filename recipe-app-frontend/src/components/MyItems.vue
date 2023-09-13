@@ -45,10 +45,23 @@ export default {
           }
         ); // Replace with your API URL
         this.recipes = response.data.data;
-        this.loading = false,
-        console.log(this.recipes);
+        if(this.recipes.length==0){
+            Swal.fire({
+            title: "My list is empty",
+            text: response.data.msg,
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        }
+        (this.loading = false), console.log(this.recipes);
       } catch (error) {
-        this.loading = false,
+        (this.loading = false),
+          Swal.fire({
+            title: "error",
+            text: error.response.data.msg,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         console.error(error.response.data.msg);
       }
     },
@@ -60,27 +73,31 @@ export default {
       console.log(token);
 
       axios
-        .delete(`https://recipe-application-c430.onrender.com/recipes/userRecipes/${Id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .delete(
+          `https://recipe-application-c430.onrender.com/recipes/userRecipes/${Id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((response) => {
-            Swal.fire({
-              title: "success",
-              text: response.data.msg,
-              icon: "success",
-              confirmButtonText: "OK",
-            });
+          Swal.fire({
+            title: "success",
+            text: response.data.msg,
+            icon: "success",
+            confirmButtonText: "OK",
+          });
           console.log(response.data);
           this.fetchRecipes();
         })
-        .catch((error) => {Swal.fire({
-              title: "error",
-              text: error.response.data.msg,
-              icon: "error",
-              confirmButtonText: "OK",
-            });
+        .catch((error) => {
+          Swal.fire({
+            title: "error",
+            text: error.response.data.msg,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
           console.error(error.response.data.msg);
         });
     },
