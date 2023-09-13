@@ -69,18 +69,6 @@
         </a>
       </button>
 
-      <!-- Log In with GitHub -->
-
-      <button id="Oauth">
-        <a
-          href="https://github.com/login/oauth/authorize?client_id=887b812ab818109a998c"
-          >Continue with GitHub
-          <img
-            src="https://pngimg.com/uploads/github/github_PNG80.png"
-            alt="GitHub"
-          />
-        </a>
-      </button>
     </div>
   </div>
 </template>
@@ -105,12 +93,6 @@ export default {
       },
       name: null,
     };
-  },
-  mounted() {
-    this.name = localStorage.getItem("name");
-    if (this.name) {
-      this.$router.push({ name: "Recipes" });
-    }
   },
   methods: {
     toggleForm() {

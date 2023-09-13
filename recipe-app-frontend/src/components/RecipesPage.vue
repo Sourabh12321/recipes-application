@@ -138,13 +138,6 @@ export default {
     },
   },
   mounted() {
-    const token = this.$route.query.token;
-    const name = this.$route.query.name;
-    console.log(token,name)
-    if(token && name){
-        localStorage.setItem("token",token);
-        localStorage.setItem("name",name);
-    }
     this.fetchRecipes();
   },
 };
