@@ -38,6 +38,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   name: "RecipesPage",
@@ -54,7 +55,7 @@ export default {
     async fetchRecipes() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/recipes/data/${this.currentPage}`
+          `https://recipe-application-c430.onrender.com/recipes/data/${this.currentPage}`
         ); // Replace with your API URL
         this.loading = false;
         this.recipes = response.data.msg.results;
@@ -68,7 +69,7 @@ export default {
       try {
         this.loading = true;
         const response = await axios.get(
-          `http://localhost:8000/recipes/search?data=${this.searchQuery}`
+          `https://recipe-application-c430.onrender.com/recipes/search?data=${this.searchQuery}`
         );
         this.recipes = response.data.results;
         console.log(this.recipes);
@@ -106,7 +107,7 @@ export default {
 
       axios
         .post(
-          "http://localhost:8000/recipes", // Replace with the correct endpoint
+          "https://recipe-application-c430.onrender.com/recipes", // Replace with the correct endpoint
           obj,
           {
             headers: {
@@ -115,16 +116,35 @@ export default {
           }
         )
         .then((response) => {
+            Swal.fire({
+              title: "success",
+              text: response.data.msg,
+              icon: "success",
+              confirmButtonText: "OK",
+            });
           console.log("Recipe added to my list:", response.data);
           // Handle success or show a confirmation message
         })
         .catch((error) => {
+            Swal.fire({
+              title: "error",
+              text: error.response.data.msg,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
           console.error(error.response.data.msg);
           // Handle error or show an error message
         });
     },
   },
   mounted() {
+    const token = this.$route.query.token;
+    const name = this.$route.query.name;
+    console.log(token,name)
+    if(token && name){
+        localStorage.setItem("token",token);
+        localStorage.setItem("name",name);
+    }
     this.fetchRecipes();
   },
 };

@@ -62,16 +62,23 @@
       <button id="Oauth">
         <a href="https://oauth-recipe.onrender.com/auth/google/">
           Continue with Google
-          <img src="http://pngimg.com/uploads/google/google_PNG19635.png" alt="Google" />
+          <img
+            src="http://pngimg.com/uploads/google/google_PNG19635.png"
+            alt="Google"
+          />
         </a>
       </button>
 
       <!-- Log In with GitHub -->
 
       <button id="Oauth">
-        <a href="https://github.com/login/oauth/authorize?client_id=887b812ab818109a998c"
+        <a
+          href="https://github.com/login/oauth/authorize?client_id=887b812ab818109a998c"
           >Continue with GitHub
-          <img src="https://pngimg.com/uploads/github/github_PNG80.png" alt="GitHub" />
+          <img
+            src="https://pngimg.com/uploads/github/github_PNG80.png"
+            alt="GitHub"
+          />
         </a>
       </button>
     </div>
@@ -79,6 +86,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import axios from "axios";
 
 export default {
@@ -99,10 +107,8 @@ export default {
     };
   },
   mounted() {
-    console.log("jd");
     this.name = localStorage.getItem("name");
     if (this.name) {
-      console.log("dlfla");
       this.$router.push({ name: "Recipes" });
     }
   },
@@ -119,20 +125,38 @@ export default {
         };
         console.log(obj);
         const response = await axios.post(
-          "http://localhost:8000/users/register",
+          "https://recipe-application-c430.onrender.com/users/register",
           obj
         );
+        Swal.fire({
+          title: "success",
+          text: response.data.msg,
+          icon: "success",
+          confirmButtonText: "OK",
+        });
         console.log("Signup successful:", response.data);
       } catch (error) {
+        Swal.fire({
+          title: "error",
+          text: error.response.data.msg,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
         console.error(error.response.data.msg);
       }
     },
     async submitLogin() {
       try {
         const response = await axios.post(
-          "http://localhost:8000/users/login",
+          "https://recipe-application-c430.onrender.com/users/login",
           this.loginData
         );
+        Swal.fire({
+          title: "success",
+          text: response.data.msg,
+          icon: "success",
+          confirmButtonText: "OK",
+        });
         console.log("Login successful:", response.data);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("name", response.data.name);
@@ -140,6 +164,12 @@ export default {
           window.location.reload();
         }, 3000);
       } catch (error) {
+        Swal.fire({
+          title: "error",
+          text: error.response.data.msg,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
         console.error(error.response.data.msg);
       }
     },
@@ -154,17 +184,16 @@ export default {
   align-items: center;
   height: 100vh;
 }
-#Oauth{
-    width:70%;
+#Oauth {
+  width: 70%;
 }
-#Oauth a{
-    text-decoration: none;
-    color:white;
-    
+#Oauth a {
+  text-decoration: none;
+  color: white;
 }
-#Oauth a img{
-    width:15px;
-    height:100%;
+#Oauth a img {
+  width: 15px;
+  height: 100%;
 }
 .form-container {
   max-width: 400px;

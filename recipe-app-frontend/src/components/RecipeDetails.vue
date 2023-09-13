@@ -37,7 +37,7 @@ export default {
       try {
         let id = localStorage.getItem("id");
         const response = await axios.get(
-          `http://localhost:8000/recipes/steps/${id}`
+          `https://recipe-application-c430.onrender.com/recipes/steps/${id}`
         ); // Replace with your API URL
         this.recipe = response.data[0].steps;
         this.loading = false,

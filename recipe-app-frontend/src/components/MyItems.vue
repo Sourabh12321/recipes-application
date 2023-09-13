@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   name: "MyItems",
@@ -36,7 +37,7 @@ export default {
       let token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          `http://localhost:8000/recipes/userRecipes`,
+          `https://recipe-application-c430.onrender.com/recipes/userRecipes`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -59,16 +60,27 @@ export default {
       console.log(token);
 
       axios
-        .delete(`http://localhost:8000/recipes/userRecipes/${Id}`, {
+        .delete(`https://recipe-application-c430.onrender.com/recipes/userRecipes/${Id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
+            Swal.fire({
+              title: "success",
+              text: response.data.msg,
+              icon: "success",
+              confirmButtonText: "OK",
+            });
           console.log(response.data);
           this.fetchRecipes();
         })
-        .catch((error) => {
+        .catch((error) => {Swal.fire({
+              title: "error",
+              text: error.response.data.msg,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
           console.error(error.response.data.msg);
         });
     },

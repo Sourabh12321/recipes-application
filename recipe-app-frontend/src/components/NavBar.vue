@@ -6,7 +6,9 @@
         >Login || Signup</router-link
       >
 
-      <router-link v-else to="" class="navbar-item">User :- {{ name }}</router-link>
+      <router-link v-else to="" class="navbar-item"
+        >User :- {{ name }}</router-link
+      >
       <router-link to="/recipe" class="navbar-item">Recipes</router-link>
       <router-link to="/my-items" class="navbar-item">My-items</router-link>
       <button v-if="name" @click="logout">Logout</button>
@@ -15,6 +17,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "NavBar",
   data() {
@@ -26,7 +29,7 @@ export default {
   mounted() {
     // Check if the user name is available in the local storage
     const name = localStorage.getItem("name");
-    
+
     if (name) {
       this.name = name;
     }
@@ -34,7 +37,12 @@ export default {
   methods: {
     logout() {
       // Perform the logout action
-
+      Swal.fire({
+        title: "success",
+        text: "Logout Successfully",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
       localStorage.clear();
       this.name = null;
     },
