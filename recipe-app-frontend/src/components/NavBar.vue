@@ -2,11 +2,14 @@
   <nav class="navbar">
     <div class="navbar-end">
       <router-link to="/" class="navbar-item">Home</router-link>
-      <router-link to="/Login" class="navbar-item"
+      <router-link v-if="!name" to="/Login" class="navbar-item" id="login"
         >Login || Signup</router-link
       >
-      <router-link to="/recipes" class="navbar-item">Recipes</router-link>
-      <router-link to="/items" class="navbar-item">My-items</router-link>
+
+      <router-link v-else to="" class="navbar-item">User :- {{ name }}</router-link>
+      <router-link to="/recipe" class="navbar-item">Recipes</router-link>
+      <router-link to="/my-items" class="navbar-item">My-items</router-link>
+      <button v-if="name" @click="logout">Logout</button>
     </div>
   </nav>
 </template>
@@ -14,6 +17,28 @@
 <script>
 export default {
   name: "NavBar",
+  data() {
+    return {
+      name: null,
+      // Placeholder for the user name
+    };
+  },
+  mounted() {
+    // Check if the user name is available in the local storage
+    const name = localStorage.getItem("name");
+    
+    if (name) {
+      this.name = name;
+    }
+  },
+  methods: {
+    logout() {
+      // Perform the logout action
+
+      localStorage.clear();
+      this.name = null;
+    },
+  },
 };
 </script>
 

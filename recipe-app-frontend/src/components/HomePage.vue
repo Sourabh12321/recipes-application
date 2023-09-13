@@ -10,13 +10,13 @@
         <img src="https://tse1.mm.bing.net/th?id=OIP.OM_YQDFEEZ6NPj0XapYwFgHaEo&pid=Api&P=0&h=180" alt="Recipe 1" />
         <h2>Delicious Dishes</h2>
         <p>A mouth-watering dishes that you'll love!</p>
-        <router-link to="/recipes/pasta">View Recipe</router-link>
+        <router-link to="/recipe" class="navbar-item">View Recipe</router-link>
       </div>
       <div class="recipe-card">
         <img src="https://tse1.mm.bing.net/th?id=OIP.IuiDuwoWmTUj4kIZrM4ikQHaFV&pid=Api&P=0&h=180" alt="Recipe 2" />
         <h2>Delicious Dishes</h2>
         <p>A mouth-watering dishes that you'll love!</p>
-        <router-link to="/recipes/pizza">View Recipe</router-link>
+        <router-link to="/recipe" class="navbar-item">View Recipe</router-link>
       </div>
     </section>
   </div>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-/* Recipe Home Page styles */
+
 .recipe-home {
   max-width: 1200px;
   margin: 0 auto;
