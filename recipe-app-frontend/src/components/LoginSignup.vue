@@ -84,6 +84,12 @@ export default {
       name: null,
     };
   },
+  mounted() {
+    this.name = localStorage.getItem("name");
+    if (this.name) {
+      this.$router.push({ name: "Recipes" });
+    }
+  },
   methods: {
     toggleForm() {
       this.isSignupForm = !this.isSignupForm;
