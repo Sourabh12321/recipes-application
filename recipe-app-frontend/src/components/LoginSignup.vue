@@ -59,16 +59,6 @@
         </div>
       </form>
 
-      <button id="Oauth">
-        <a href="https://oauth-recipe.onrender.com/auth/google/">
-          Continue with Google
-          <img
-            src="http://pngimg.com/uploads/google/google_PNG19635.png"
-            alt="Google"
-          />
-        </a>
-      </button>
-
     </div>
   </div>
 </template>
